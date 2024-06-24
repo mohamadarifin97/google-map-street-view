@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Map Street View</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #map,
+        #pano {
+            float: left;
+            height: 100%;
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <div id="pano"></div>
+
+    <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB41DRUbKWJHPxaFjMAwdrzWzbVKartNGg&loading=async&callback=initialize&v=weekly" defer></script>
+</body>
+<script>
+    function initialize() {
+        const fenway = { lat: 2.5568998605080244, lng: 102.04349260361991 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: fenway,
+            zoom: 14,
+        });
+        const panorama = new google.maps.StreetViewPanorama(
+            document.getElementById("pano"),
+            {
+                position: fenway,
+                pov: {
+                    heading: 34,
+                    pitch: 10,
+                },
+            },
+        );
+
+        map.setStreetView(panorama);
+    }
+
+    window.initialize = initialize;
+</script>
+
+</html>
